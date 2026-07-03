@@ -4,6 +4,10 @@
 
 Website ini saat ini dikembangkan sebagai aplikasi frontend statis yang berjalan penuh tanpa Node.js. Semua data utama disimpan di browser melalui localStorage, sehingga bisa dibuka langsung dari GitHub Pages atau file lokal.
 
+Link Admin: [https://indahkiranaputri.github.io/nyobaaja/admin.html](https://indahkiranaputri.github.io/nyobaaja/admin.html)
+
+Link Customer: [https://indahkiranaputri.github.io/nyobaaja/customer.html](https://indahkiranaputri.github.io/nyobaaja/customer.html) (atau cust.html)
+
 ## Fitur Utama
 
 - Katalog produk dan halaman detail produk
