@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indah's Beauté Atelier</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DUMMY123"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DUMMY123');
+</script>
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Google Fonts: Cormorant Garamond (utama) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons (CDN) -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="#home" class="nav-logo">
+<i data-lucide="shopping-bag" class="logo-icon" aria-hidden="true"></i>
+        <span class="logo-text">Indah's <em>Beaut� Atelier</em></span>
+      </a>
+
+      <!-- Menu desktop -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#products" class="nav-link">Produk</a></li>
+        <li><a href="#contact" class="nav-link">Kontak</a></li>
+        <li><a href="tracking.html" class="nav-link">Pesanan</a></li>
+        <li id="navLoginItem"><a href="login.html" class="nav-link">Login</a></li>
+        <li id="navUserItem" style="display:none;align-items:center;gap:0.5rem;">
+          <a href="profile.html" class="nav-link" id="navUserName"><i data-lucide="user" aria-hidden="true" style="width:18px;height:18px;vertical-align:-4px;"></i> Akun</a>
+          <button class="nav-link nav-logout-btn" onclick="logoutUser()" style="background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;color:inherit;padding:0.4rem 0.75rem;">Keluar</button>
+        </li>
+      </ul>
+
+      <!-- Tombol keranjang -->
+      <button class="cart-btn" id="cartBtn" onclick="toggleCart()">
+        <i data-lucide="shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+
+      <!-- Hamburger menu (mobile) -->
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO SECTION ===================== -->
+  <section class="hero" id="home">
+    <div class="hero-bg-decor"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Your Ultimate Beauty Destination.</p>
+      <h1 class="hero-title">
+        Rangkaian Perawatan Harian Mulai dari Kulit Sehat<br />
+        Rambut Berkilau <em>Hingga Wangi yang</em><br />
+        Menenangkan Jiwa
+      </h1>
+      <p class="hero-desc">
+        Cantik Versi Terbaikmu Dimulai dari Sini. Temukan Koleksi Lengkap Skincare, Bodycare, Haircare, Makeup, hingga Perfume Terbaik yang Dirancang Khusus untuk Kulit Bercahaya dan Sehatmu.
+      </p>
+     <div id="indahWatermark">Developed by Indah</div>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary">Lihat Koleksi</a>
+        <a href="#contact" class="btn btn-outline">Hubungi Kami</a>
+      </div>
+      <!-- Badge statistik -->
+      <div class="hero-stats">
+        <div class="stat"><strong>1000+</strong><span>Pelanggan</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><strong>24+</strong><span>Produk Premium</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><strong><i data-lucide="star" aria-hidden="true" style="width:16px;height:16px;vertical-align:-3px;"></i> 5.0</strong><span>Rating</span></div>
+      </div>
+    </div>
+<div class="hero-visual">
+      <div class="hero-circle hero-circle--lg"></div>
+      <div class="hero-circle hero-circle--sm"></div>
+      <div class="hero-flower-grid">
+        <div class="flower-card fc1"><span>Luxury Makeup</span></div>
+        <div class="flower-card fc2"><span>Premium Skincare</span></div>
+        <div class="flower-card fc3"><span>Hair Atelier</span></div>
+        <div class="flower-card fc4"><span>Extrait de Parfum</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BANNER PROMO ===================== -->
+  <section class="promo-banner">
+    <div class="promo-track">
+<span><i data-lucide="sparkles" aria-hidden="true" style="width:16px;height:16px;vertical-align:-3px;"></i> Gratis Ongkir Premium se-Indonesia &nbsp;&nbsp; � &nbsp;&nbsp;</span>
+<span> Personalized Makeup Consultation &nbsp;&nbsp; � &nbsp;&nbsp;</span>
+<span> 100% Original High-End &amp; Luxury Beauty &nbsp;&nbsp; � &nbsp;&nbsp;</span>
+<span> Cruelty-Free &amp; Premium Ingredients &nbsp;&nbsp; � &nbsp;&nbsp;</span>
+<span> Gratis Ongkir Premium se-Indonesia &nbsp;&nbsp; � &nbsp;&nbsp;</span>
+<span> Personalized Makeup Consultation &nbsp;&nbsp; � &nbsp;&nbsp;</span>
+<span> 100% Original High-End &amp; Luxury Beauty &nbsp;&nbsp; � &nbsp;&nbsp;</span>
+<span> Cruelty-Free &amp; Premium Ingredients &nbsp;&nbsp; � &nbsp;&nbsp;</span>
+    </div>
+  </section>
+
+  <!-- ===================== VOUCHER / DISKON ===================== -->
+  <section class="voucher-showcase" aria-label="Promo voucher dan diskon">
+    <div class="voucher-card reveal-on-scroll">
+      <div class="voucher-decor" aria-hidden="true">
+       <i class="flower-dot f1" data-lucide="sparkles" aria-hidden="true"></i>
+        <i class="flower-dot f2" data-lucide="pill" aria-hidden="true"></i>
+        <i class="flower-dot f3" data-lucide="crown" aria-hidden="true"></i>
+      </div>
+      <div class="voucher-main">
+        <span class="voucher-badge"><i data-lucide="gift" aria-hidden="true" style="width:16px;height:16px;"></i> Voucher Spesial</span>
+        <span class="voucher-subbadge"><i data-lucide="zap" aria-hidden="true" style="width:16px;height:16px;"></i> Promo terbatas hari ini</span>
+        <h3>Diskon 20% + Premium Beauty Gift Box</h3>
+        <p>Gunakan kode <strong>BEAUTE20</strong> saat checkout untuk mendapatkan potongan harga dan bonus kemasan kotak hadiah eksklusif.</p>
+        <div class="voucher-features">
+          <span>Gratis Ongkir Se-Indonesia</span>
+          <span>Promo eksklusif 1–30 Agustus 2026</span>
+          <span>Free Premium Gift Box</span>
+        </div>
+      </div>
+      <div class="voucher-side">
+        <div class="voucher-sticker"><i data-lucide="sparkles" aria-hidden="true" style="width:18px;height:18px;"></i></div>
+        <span class="voucher-code" id="voucherCodeText">BEAUTE20</span>
+        <p>minimal pembelian 2 item</p>
+        <button type="button" class="voucher-copy-btn" onclick="copyVoucherCode()">Salin Kode</button>
+        <a href="#products" class="btn">Lihat Promo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRODUK ===================== -->
+  <section class="products-section" id="products">
+
+    <!-- ===================== DETAIL PRODUK (detailView) ===================== -->
+  <section class="detail-view" id="detailView" aria-live="polite" style="display:none;" data-view="detailView">
+    <div class="detail-view-overlay" aria-hidden="true"></div>
+    <!-- konten detail dipisahkan dari produk grid oleh JS -->
+
+    <div class="detail-view-inner">
+      <div class="detail-view-header">
+      <button class="btn btn-outline" type="button" onclick="backToProducts()">
+          <i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Produk
+        </button>
+        <span class="detail-view-hint"> Detail Produk</span>
+      </div>
+
+      <div class="detail-view-grid">
+        <div class="detail-view-media">
+          <div class="detail-view-img-wrap">
+            <img id="detailProductImage" alt="Gambar produk" src="" />
+          </div>
+          <div class="detail-view-media-emoji" id="detailProductEmoji"></div>
+        </div>
+
+        <div class="detail-view-info">
+          <div class="detail-view-category" id="detailProductCategory">-</div>
+          <h2 class="detail-view-name" id="detailProductName">-</h2>
+          <div class="detail-view-price" id="detailProductPrice">-</div>
+          <div class="detail-view-stock" id="detailProductStock">-</div>
+
+          <p class="detail-view-desc" id="detailProductDesc">-</p>
+
+          <div class="detail-view-actions">
+<button class="btn btn-primary btn-detail" type="button" id="detailAddToCartBtn" onclick="addToCart(lastSelectedProductId)">
+              <i class="fa-solid fa-cart-plus"></i> Tambah ke Keranjang
+            </button>
+          </div>
+
+          <p class="detail-view-note">Stok diperbarui saat checkout.</p>
+        </div>
+      </div>
+
+        <div class="detail-view-not-found" id="detailNotFound" style="display:none;">
+        <div class="not-found-icon"><i data-lucide="sparkles" aria-hidden="true" style="width:34px;height:34px;"></i></div>
+        <h3>Produk tidak ditemukan.</h3>
+        <p>Coba pilih produk lain dari daftar.</p>
+      </div>
+    </div>
+  </section>
+
+    <div class="section-header">
+      <p class="section-tag">Koleksi Kami</p>
+      <h2 class="section-title">Koleksi Keindahan Terbaik</h2>
+      <p class="section-desc">Dibuat Eksklusif dengan Bahan Premium Pilihan untuk Pancaran Kecantikan Anda</p>
+    </div>
+
+    <div class="product-search-wrap">
+      <input type="text" id="productSearch" class="product-search" placeholder="Cari produk, kategori, atau keterangan..." />
+      <button class="product-search-btn" type="button" onclick="submitProductSearch()">Cari</button>
+    </div>
+
+    <!-- Filter kategori -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-category="semua" onclick="filterProducts('semua', this)">Semua</button>
+      <button class="filter-btn" data-category="Skincare" onclick="filterProducts('Skincare', this)">Skincare</button>
+      <button class="filter-btn" data-category="Bodycare" onclick="filterProducts('Bodycare', this)">Bodycare</button>
+      <button class="filter-btn" data-category="Haircare" onclick="filterProducts('Haircare', this)">Haircare</button>
+      <button class="filter-btn" data-category="Makeup" onclick="filterProducts('Makeup', this)">Makeup</button>
+      <button class="filter-btn" data-category="Perfume" onclick="filterProducts('Perfume', this)">Perfume</button>
+    </div>
+
+    <!-- Grid produk � diisi oleh JavaScript -->
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+  <div class="detail-view-fallback-spacer" aria-hidden="true"></div>
+
+  <!-- ===================== KEUNGGULAN ===================== -->
+  <section class="features-section">
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon"></span>
+        <h3>Bahan Premium</h3>
+        <p>Kami Hanya Menggunakan Formula Premium, Aman, dan Cruelty-free yang Teruji Secara Klinis.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon"></span>
+        <h3>Packaging Mewah</h3>
+        <p>Setiap Produk Dikemas dalam Kemasan Eksklusif dan Estetik, Siap Menjadi Hadiah Berkesan.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon"></span>
+        <h3>Pengiriman Aman</h3>
+        <p>Layanan Pengiriman Cepat ke Seluruh Lokasi dengan Proteksi Maksimal Agar Produk Anda Tetap Terjaga.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon"></span>
+        <h3>Personal Kurasi</h3>
+        <p>Anda Bisa Berkonsultasi untuk Memilih Jenis Produk, dan Paket Kecantikan Sesuai Kebutuhan Anda.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VISI & MISI ===================== -->
+  <section class="vision-section">
+    <div class="section-header">
+     <p class="section-tag">Visi & Misi</p>
+      <h2 class="section-title">Apa yang Kami Usung</h2>
+      <p class="section-desc">Indah's Beaut� Atelier Hadir untuk Menghadirkan Produk Kecantikan Mewah, Berkualitas Tinggi, dan Merayakan Keunikan Setiap Pancaran Pesona Anda.</p>
+    </div>
+    <div class="vision-grid">
+      <div class="vision-card">
+        <h3>Visi</h3>
+        <p>Menjadi Destinasi Kurasi Kecantikan Mewah Terpercaya yang Menginspirasi Rasa Percaya Diri dan Menghadirkan Kemewahan Autentik di Setiap Sentuhan.</p>
+      </div>
+      <div class="vision-card">
+        <h3>Misi</h3>
+        <p>Menyediakan Kosmetik dan Skincare Premium dengan Formula Aman, Memberikan Pelayanan Konsultasi Personal yang Eksklusif, serta Mengutamakan Kepuasan Pelanggan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INFO & BANTUAN ===================== -->
+ <section class="info-section">
+    <div class="section-header">
+      <p class="section-tag">Informasi Penting</p>
+      <h2 class="section-title">Semua yang Perlu Anda Ketahui</h2>
+    </div>
+    <div class="info-grid">
+      <article class="info-card" id="cara-pesan">
+        <button class="info-toggle" type="button" aria-expanded="false" aria-controls="cara-pesan-panel">
+          <span class="info-toggle__title">Cara Pesan</span>
+          <span class="info-toggle__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="info-panel" id="cara-pesan-panel" aria-hidden="true">
+          <ol class="info-list">
+            <li>Pilih mahakarya kecantikan atau produk perawatan eksklusif yang Anda inginkan dari koleksi kami.</li>
+            <li>Klik tombol Masukkan ke Keranjang atau Beli Sekarang untuk memesan produk.</li>
+            <li>Lanjutkan ke checkout, lakukan pembayaran virtual account/QRIS, dan manifest pesanan akan dikonfirmasi otomatis serta terkirim via WhatsApp.</li>
+          </ol>
+        </div>
+      </article>
+      <article class="info-card" id="syarat-ketentuan">
+        <button class="info-toggle" type="button" aria-expanded="false" aria-controls="syarat-ketentuan-panel">
+          <span class="info-toggle__title">Syarat & Ketentuan</span>
+          <span class="info-toggle__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="info-panel" id="syarat-ketentuan-panel" aria-hidden="true">
+          <ul class="info-list">
+            <li>Setiap produk diformulasikan secara ilmiah dan diproses secara steril sesuai dengan urutan pesanan masuk.</li>
+            <li>Harga yang tertera bersifat mengikat, namun penggunaan kode kupon hak istimewa (privilege) tunduk pada kuota kupon yang tersedia.</li>
+            <li>Pengiriman berlaku untuk pengiriman domestik ke seluruh penjuru negeri menggunakan kurir privat dan ekspedisi premium khusus.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="info-card" id="faq">
+        <button class="info-toggle" type="button" aria-expanded="false" aria-controls="faq-panel">
+          <span class="info-toggle__title">FAQ</span>
+          <span class="info-toggle__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="info-panel" id="faq-panel" aria-hidden="true">
+          <ul class="info-list">
+            <li>Apakah produk aman dan teruji? Ya, semua produk dipilih secara khusus melalui kurasi bio-saintifik terpercaya untuk memancarkan aura alami Anda.</li>
+            <li>Berapa lama proses distribusi pesanan? Layanan pengiriman reguler/gratis memakan waktu 5-7 hari, sedangkan kurir privat kami membutuhkan waktu 1-2 hari kerja.</li>
+            <li>Apakah tersedia penawaran gratis ongkir? Ya, jaminan gratis ongkir se-Indonesia tersedia melalui klaim voucher privilege khusus yang tertera di halaman produk.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== KONTAK ===================== -->
+ <section class="contact-section" id="contact">
+    <div class="contact-container">
+      <div class="contact-info">
+        <p class="section-tag">Hubungi Kami</p>
+        <h2>Produk Kecantikan<br /><em>Impian Anda</em></h2>
+        <p>Punya permintaan khusus atau konsultasi kulit? Kami siap membantu mewujudkan produk impian Anda.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <i data-lucide="map-pin" aria-hidden="true" style="font-size:1.1rem;flex-shrink:0;color:var(--pink-deep);"></i>
+            <span>Jl. Cipaganti No. 17, Bandung</span>
+          </div>
+          <div class="contact-item">
+            <i data-lucide="smartphone" aria-hidden="true" style="font-size:1.1rem;flex-shrink:0;color:var(--pink-deep);"></i>
+            <span>+62 895-3429-19983 (WhatsApp)</span>
+          </div>
+          <div class="contact-item">
+            <i data-lucide="clock" aria-hidden="true" style="font-size:1.1rem;flex-shrink:0;color:var(--pink-deep);"></i>
+            <span>Senin � Jum'at, 08.00 � 22.00 WIB</span>
+          </div>
+          <div class="contact-item">
+            <i data-lucide="camera" aria-hidden="true" style="font-size:1.1rem;flex-shrink:0;color:var(--pink-deep);"></i>
+            <span>@indahsbeaute.atalier (Instagram)</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-wrapper">
+        <div class="contact-form">
+          <div class="form-group">
+            <label>Nama Lengkap</label>
+            <input type="text" id="contactName" placeholder="Nama lengkap Anda..." />
+          </div>
+          <div class="form-group">
+            <label>Nomor WhatsApp</label>
+            <input type="text" id="contactPhone" placeholder="+62..." />
+          </div>
+          <div class="form-group">
+            <label>Pesan / Pesanan</label>
+            <textarea id="contactMsg" rows="4" placeholder="Ceritakan kebutuhan atau keluhan perawatan Anda..."></textarea>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="submitContact()">Kirim Pesan via WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="logo-text"><i data-lucide="shopping-bag" aria-hidden="true" style="width:18px;height:18px;vertical-align:-3px;color:var(--pink-deep);"></i> Indah's <em>Beaute Atalier</em></span>
+        <p>Cantik Versi Terbaikmu Dimulai dari Sini. Temukan koleksi lengkap Skincare, Makeup, hingga Bodycare terbaik yang dirancang khusus untuk kulit bercahaya dan sehatmu.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Produk</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Kategori</h4>
+        <ul>
+          <li><a href="#products" onclick="event.preventDefault(); openCategory('skincare')">Skincare</a></li>
+          <li><a href="#products" onclick="event.preventDefault(); openCategory('bodycare')">Bodycare</a></li>
+          <li><a href="#products" onclick="event.preventDefault(); openCategory('haircare')">Haircare</a></li>
+          <li><a href="#products" onclick="event.preventDefault(); openCategory('makeup')">Makeup</a></li>
+          <li><a href="#products" onclick="event.preventDefault(); openCategory('parfum')">Parfum</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="#cara-pesan">Cara Pesan</a></li>
+          <li><a href="#syarat-ketentuan">Syarat & Ketentuan</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>� 2026 Indah's Beaut� Atelier. Dibuat dengan Kemewahan di Bandung.</p>
+    </div>
+  </footer>
+
+  <!-- ===================== CART SIDEBAR ===================== -->
+  <!-- Overlay gelap di belakang cart -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+  <!-- Panel keranjang -->
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div id="indahWatermark">Developed by Indah</div>
+<div class="cart-header">
+        <h3><i data-lucide="shopping-bag" aria-hidden="true" style="width:18px;height:18px;vertical-align:-3px;"></i> Keranjang Belanja</h3>
+      <button class="cart-close" onclick="toggleCart()"><i data-lucide="x" aria-hidden="true" style="width:18px;height:18px;"></i></button>
+    </div>
+
+    <!-- Daftar item cart � diisi JavaScript -->
+    <div class="cart-items" id="cartItems">
+        <div class="cart-empty" id="cartEmpty">
+        <span><i data-lucide="shopping-bag" aria-hidden="true" style="width:18px;height:18px;"></i></span>
+        <p>Keranjangmu masih kosong.<br />Yuk pilih produk untuk keindahan tubuhmu!</p>
+      </div>
+    </div>
+
+    <!-- Ringkasan total -->
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="voucher-box">
+        <label class="voucher-label" for="voucherInput">Kode Voucher</label>
+        <div class="voucher-row">
+          <input type="text" id="voucherInput" class="voucher-input" placeholder="Contoh: BEAUTE20" />
+          <button class="voucher-btn" type="button" onclick="applyVoucher()">Gunakan</button>
+        </div>
+        <p class="voucher-hint">Gunakan kode: BEAUTE20</p>
+        <div class="voucher-status" id="voucherStatus">Masukkan kode voucher untuk dapat diskon.</div>
+      </div>
+
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="subtotalPrice">Rp 0</span>
+        </div>
+        <div class="summary-row">
+          <span>Diskon</span>
+          <span id="discountPrice" class="discount-price">-Rp 0</span>
+        </div>
+        <div class="summary-row">
+          <span>Ongkir</span>
+          <span class="free-tag">GRATIS</span>
+        </div>
+        <div class="summary-row total-row">
+          <strong>Total</strong>
+          <strong id="totalPrice">Rp 0</strong>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="goToCheckout()">Checkout Sekarang</button>
+      <button class="btn btn-outline btn-full mt-8" onclick="clearCart()">Kosongkan Keranjang</button>
+    </div>
+  </aside>
+
+  <!-- Toast notifikasi -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/default_products.js"></script>
+  <script>window.API_BASE = window.location.origin + '/api';</script>
+  <script src="js/api_client.js"></script>
+
+  <script src="js/script.js"></script>
+  <!-- Google Analytics dummy (untuk dokumentasi PDF & requirement analytics) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Dummy GA
+    gtag('js', new Date());
+    gtag('config', 'UA-000000-2', { 'anonymize_ip': true });
+  </script>
+
+  <script>initCSWidget();</script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Integration Example - Indah Beauté Atelier</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .firebase-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #f0f0f0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 14px;
+            z-index: 1000;
+        }
+        .firebase-status.connected {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        .firebase-status.disconnected {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        .firebase-status.loading {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        .sync-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        .sync-indicator.connected {
+            background: #28a745;
+        }
+        .sync-indicator.disconnected {
+            background: #dc3545;
+            animation: none;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .demo-section {
+            background: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .demo-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .demo-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .demo-form input, .demo-form textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+        }
+        .demo-form button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .demo-form button:hover {
+            background: #45a049;
+        }
+        .demo-form button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        .data-display {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+    <!-- Firebase Status Indicator -->
+    <div class="firebase-status loading" id="firebaseStatus">
+        <span class="sync-indicator"></span>
+        <span id="firebaseStatusText">Initializing Firebase...</span>
+    </div>
+
+    <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+        <h1>🔥 Firebase Integration Demo</h1>
+        <p>Contoh implementasi Firebase untuk real-time synchronization</p>
+
+        <!-- Authentication Demo -->
+        <div class="demo-section">
+            <h3>🔐 Authentication</h3>
+            <div id="authStatus"></div>
+            <div class="demo-form" id="authForm">
+                <input type="email" id="authEmail" placeholder="Email" value="demo@example.com">
+                <input type="password" id="authPassword" placeholder="Password" value="demo123">
+                <button onclick="handleLogin()">Login</button>
+                <button onclick="handleRegister()">Register</button>
+                <button onclick="handleLogout()" id="logoutBtn" disabled>Logout</button>
+            </div>
+        </div>
+
+        <!-- Products Real-time Sync Demo -->
+        <div class="demo-section">
+            <h3>📦 Real-time Products (Auto-sync)</h3>
+            <p>Semua perubahan di device lain akan tampil otomatis di sini</p>
+            <button onclick="loadProducts()">Refresh Products</button>
+            <div class="data-display" id="productsDisplay">Loading...</div>
+        </div>
+
+        <!-- Cart Real-time Sync Demo -->
+        <div class="demo-section" id="cartSection" style="display:none;">
+            <h3>🛒 My Shopping Cart (Real-time)</h3>
+            <div class="demo-form">
+                <input type="text" id="cartProductId" placeholder="Product ID" value="1">
+                <input type="number" id="cartQuantity" placeholder="Quantity" value="1" min="1">
+                <button onclick="addToCart()">Add to Cart</button>
+            </div>
+            <div class="data-display" id="cartDisplay">No items in cart</div>
+        </div>
+
+        <!-- Custom Data Storage Demo -->
+        <div class="demo-section" id="customDataSection" style="display:none;">
+            <h3>💾 Custom Data Storage</h3>
+            <p>Simpan data custom ke Firebase</p>
+            <div class="demo-form">
+                <input type="text" id="dataKey" placeholder="Data Key" value="myData">
+                <textarea id="dataValue" placeholder="Data Value (JSON)" rows="4">{"message":"Hello Firebase!"}</textarea>
+                <button onclick="saveCustomData()">Save Data</button>
+                <button onclick="loadCustomData()">Load Data</button>
+            </div>
+            <div class="data-display" id="customDataDisplay">No data</div>
+        </div>
+
+        <!-- Status Log -->
+        <div class="demo-section">
+            <h3>📝 Activity Log</h3>
+            <div class="data-display" id="activityLog">Waiting for activity...</div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"></script>
+
+    <!-- Firebase Configuration -->
+    <script src="firebase-config.js"></script>
+
+    <!-- Firebase Client Service -->
+    <script src="js/firebase-client.js"></script>
+
+    <!-- Firebase API Layer -->
+    <script src="js/firebase-api.js"></script>
+
+    <!-- Demo Application Logic -->
+    <script>
+        let currentUser = null;
+        const activityLog = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            await firebaseClient.initialize();
+            setupAuthListener();
+            loadProducts();
+            addActivityLog('Firebase initialized');
+        });
+
+        // Setup auth state listener
+        function setupAuthListener() {
+            onAuthStateChanged((user) => {
+                currentUser = user;
+                updateAuthUI();
+                
+                if (user) {
+                    addActivityLog(`Logged in as: ${user.email}`);
+                    document.getElementById('cartSection').style.display = 'block';
+                    document.getElementById('customDataSection').style.display = 'block';
+                    listenToCart();
+                } else {
+                    addActivityLog('Logged out');
+                    document.getElementById('cartSection').style.display = 'none';
+                    document.getElementById('customDataSection').style.display = 'none';
+                    document.getElementById('cartDisplay').textContent = 'Please login';
+                    currentUser = null;
+                }
+            });
+        }
+
+        // Update auth UI
+        function updateAuthUI() {
+            const authStatus = document.getElementById('authStatus');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            if (currentUser) {
+                authStatus.innerHTML = `<p>✅ Logged in as: <strong>${currentUser.email}</strong></p>`;
+                logoutBtn.disabled = false;
+            } else {
+                authStatus.innerHTML = '<p>❌ Not logged in</p>';
+                logoutBtn.disabled = true;
+            }
+        }
+
+        // Handle login
+        async function handleLogin() {
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+            
+            if (!email || !password) {
+                alert('Please fill in email and password');
+                return;
+            }
+
+            try {
+                const result = await firebaseLogin(email, password);
+                if (result.success) {
+                    addActivityLog('✅ Login successful');
+                } else {
+                    addActivityLog('❌ Login failed: ' + result.error);
+                    alert('Login failed: ' + result.error);
+                }
+            } catch (error) {
+                addActivityLog('❌ Login error: ' + error.message);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Handle register
+        async function handleRegister() {
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+            
+            if (!email || !password) {
+                alert('Please fill in email and password');
+                return;
+            }
+
+            try {
+                const result = await firebaseRegister(email, password, { 
+                    nama: email.split('@')[0] 
+                });
+                if (result.success) {
+                    addActivityLog('✅ Register successful');
+                    alert('Register successful! Please login.');
+                } else {
+                    addActivityLog('❌ Register failed: ' + result.error);
+                    alert('Register failed: ' + result.error);
+                }
+            } catch (error) {
+                addActivityLog('❌ Register error: ' + error.message);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Handle logout
+        async function handleLogout() {
+            await firebaseLogout();
+            addActivityLog('✅ Logout successful');
+        }
+
+        // Load products
+        async function loadProducts() {
+            try {
+                addActivityLog('📦 Loading products...');
+                const products = await firebaseClient.getData('products');
+                
+                if (products) {
+                    const productList = Object.entries(products)
+                        .map(([id, product]) => 
+                            `ID: ${id}\n${product.nama_produk} - Rp${product.harga.toLocaleString('id-ID')}`
+                        )
+                        .join('\n\n');
+                    
+                    document.getElementById('productsDisplay').textContent = productList;
+                    addActivityLog(`✅ Loaded ${Object.keys(products).length} products`);
+                } else {
+                    document.getElementById('productsDisplay').textContent = 'No products found';
+                    addActivityLog('⚠️ No products in database');
+                }
+            } catch (error) {
+                addActivityLog('❌ Error loading products: ' + error.message);
+                document.getElementById('productsDisplay').textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // Listen to cart changes
+        function listenToCart() {
+            if (!currentUser) return;
+            
+            listenToData(`carts/${currentUser.uid}`, (cart) => {
+                if (cart) {
+                    const cartInfo = `User Cart:\n${JSON.stringify(cart, null, 2)}`;
+                    document.getElementById('cartDisplay').textContent = cartInfo;
+                } else {
+                    document.getElementById('cartDisplay').textContent = 'Cart is empty';
+                }
+            });
+        }
+
+        // Add to cart
+        async function addToCart() {
+            if (!currentUser) {
+                alert('Please login first');
+                return;
+            }
+
+            const productId = document.getElementById('cartProductId').value;
+            const quantity = parseInt(document.getElementById('cartQuantity').value);
+
+            if (!productId || quantity <= 0) {
+                alert('Please fill in valid product ID and quantity');
+                return;
+            }
+
+            try {
+                addActivityLog(`Adding product ${productId} to cart...`);
+                
+                // Get current cart
+                const cart = await firebaseClient.getData(`carts/${currentUser.uid}`);
+                const items = cart?.items || {};
+                
+                // Add or update item
+                items[productId] = {
+                    productId: productId,
+                    quantity: quantity,
+                    addedAt: new Date().toISOString()
+                };
+
+                // Save updated cart
+                await firebaseClient.setData(`carts/${currentUser.uid}`, {
+                    items: items,
+                    userId: currentUser.uid,
+                    updatedAt: new Date().toISOString()
+                });
+
+                addActivityLog(`✅ Added product ${productId} to cart`);
+                alert('Added to cart!');
+            } catch (error) {
+                addActivityLog('❌ Error adding to cart: ' + error.message);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Save custom data
+        async function saveCustomData() {
+            if (!currentUser) {
+                alert('Please login first');
+                return;
+            }
+
+            const key = document.getElementById('dataKey').value;
+            const value = document.getElementById('dataValue').value;
+
+            if (!key || !value) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            try {
+                const data = JSON.parse(value);
+                const path = `users/${currentUser.uid}/${key}`;
+                
+                addActivityLog(`Saving data to ${path}...`);
+                await firebaseClient.setData(path, data);
+                
+                addActivityLog(`✅ Data saved successfully`);
+                alert('Data saved!');
+            } catch (error) {
+                addActivityLog('❌ Error saving data: ' + error.message);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Load custom data
+        async function loadCustomData() {
+            if (!currentUser) {
+                alert('Please login first');
+                return;
+            }
+
+            const key = document.getElementById('dataKey').value;
+            if (!key) {
+                alert('Please fill in data key');
+                return;
+            }
+
+            try {
+                const path = `users/${currentUser.uid}/${key}`;
+                addActivityLog(`Loading data from ${path}...`);
+                
+                const data = await firebaseClient.getData(path);
+                document.getElementById('customDataDisplay').textContent = JSON.stringify(data, null, 2);
+                
+                addActivityLog(`✅ Data loaded successfully`);
+            } catch (error) {
+                addActivityLog('❌ Error loading data: ' + error.message);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Add activity log
+        function addActivityLog(message) {
+            const timestamp = new Date().toLocaleTimeString('id-ID');
+            activityLog.unshift(`[${timestamp}] ${message}`);
+            
+            // Keep only last 20 entries
+            if (activityLog.length > 20) {
+                activityLog.pop();
+            }
+
+            document.getElementById('activityLog').textContent = activityLog.join('\n');
+            console.log(message);
+        }
+
+        // Update Firebase status
+        window.addEventListener('online', () => {
+            updateFirebaseStatus();
+        });
+
+        window.addEventListener('offline', () => {
+            updateFirebaseStatus();
+        });
+
+        function updateFirebaseStatus() {
+            const statusEl = document.getElementById('firebaseStatus');
+            const statusText = document.getElementById('firebaseStatusText');
+            const indicator = statusEl.querySelector('.sync-indicator');
+            
+            if (navigator.onLine) {
+                statusEl.className = 'firebase-status connected';
+                statusText.textContent = '✅ Firebase Connected';
+                indicator.className = 'sync-indicator connected';
+            } else {
+                statusEl.className = 'firebase-status disconnected';
+                statusText.textContent = '❌ Offline Mode';
+                indicator.className = 'sync-indicator disconnected';
+            }
+        }
+
+        // Initial status check
+        updateFirebaseStatus();
+    </script>
+</body>
+</html>

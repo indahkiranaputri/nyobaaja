@@ -1,0 +1,32 @@
+node_modules/
+data/db.sqlite
+.env
+.env.local
+.DS_Store
+dist/
+/.github/workflows/*-local.yml
+
+# Firebase credentials (SECURITY: Never commit these)
+serviceAccountKey.json
+firebase-key-*.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+build/
+.next/
+
+# Cache
+.cache/
+*.cache
+coverage/

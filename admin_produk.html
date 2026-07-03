@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produk � Indah's Beaut� Atelier Admin</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DUMMY123"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DUMMY123');
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin_style.css" />
+</head>
+<body>
+
+<div class="ad-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="ad-sidebar">
+    <div class="ad-brand">
+      <span class="ad-brand-icon" aria-hidden="true" title="Atelier">IBA</span>
+      <div class="ad-brand-name">Indah's Beaut� Atelier</div>
+      <div class="ad-brand-sub">Panel Admin</div>
+    </div>
+<nav class="ad-nav">
+      <a href="admin_dashboard.html" class="ad-nav-link"><span class="ad-nav-icon"></span> Dashboard</a>
+      <a href="admin_produk.html"    class="ad-nav-link"><span class="ad-nav-icon"></span> Produk</a>
+      <a href="admin_pesanan.html"   class="ad-nav-link"><span class="ad-nav-icon"></span> Pesanan</a>
+    </nav>
+    <div class="ad-sidebar-footer">
+      <button class="ad-logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="ad-main">
+    <div class="ad-topbar">
+      <div>
+        <div class="ad-page-title">Kelola Produk</div>
+        <div class="ad-page-sub">Tambah, edit, hapus, dan atur stok produk</div>
+      </div>
+      <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+        <button type="button" class="ad-btn-add" onclick="syncAdminData()" style="background:var(--ad-pink);color:white;border:none;">?? Sinkronkan</button>
+        <a href="admin_tambah_produk.html" class="ad-btn-add">+ Tambah Produk</a>
+      </div>
+    </div>
+    <div id="indahWatermark">Developed by Indah</div>
+    <div class="ad-card">
+      <div class="ad-card-header">
+        <span class="ad-card-title">Daftar Produk</span>
+        <span id="produkCount" style="font-size:0.82rem;color:var(--ad-muted)"></span>
+      </div>
+      <div class="ad-table-wrap">
+        <table class="ad-table">
+          <thead>
+            <tr>
+              <th>Produk</th>
+              <th>Kategori</th>
+              <th>Harga</th>
+              <th>Stok</th>
+              <th>Label</th>
+              <th style="min-width:160px;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="produkTableBody">
+            <tr><td colspan="6" class="ad-empty">Memuat...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="js/default_products.js"></script>
+<script>window.API_BASE = window.location.origin + '/api';</script>
+<script src="js/api_client.js"></script>
+
+<script src="js/admin_script.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    initAdminSidebarActive();
+    initProduk();
+
+    const el = document.getElementById("produkCount");
+    if (el) el.textContent = products.length + " produk";
+  });
+</script>
+</body>
+</html>
+
+
+

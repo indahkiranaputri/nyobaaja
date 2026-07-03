@@ -1,0 +1,317 @@
+{
+  "users": [
+    {
+      "id": "u_1",
+      "nama": "Indah Kirana",
+      "email": "user@example.com",
+      "password": "user123"
+    }
+  ],
+  "admin": {
+    "username": "admin",
+    "password": "admin123"
+  },
+  "products": [
+    {
+      "id": 1,
+      "nama_produk": "Luminous Silk Velvet Liptint",
+      "kategori": "makeup",
+      "harga": 490000,
+      "foto_produk": "image/liptint.jpg.jpeg",
+      "deskripsi": "An ultra-refined fluid liptint crafted with premium French Rose Extract and nourishing Squalane.",
+      "review": [
+        {
+          "id": "rv_1",
+          "productId": "1",
+          "userId": "u_1",
+          "name": "Amanda",
+          "rating": 5,
+          "text": "Sangat bagus, pengiriman cepat.",
+          "createdAt": "2025-08-01T09:00:00.000Z"
+        }
+      ],
+      "stock": 42,
+      "emoji": "💄",
+      "hot": true
+    },
+    {
+      "id": 2,
+      "nama_produk": "Couture Celestial Quad Eyeshadow",
+      "kategori": "makeup",
+      "harga": 980000,
+      "foto_produk": "image/eyshadow.jpg.jpeg",
+      "deskripsi": "Koleksi memukau yang terdiri dari empat eyeshadow berpigmen tinggi dengan micro-shimmer.",
+      "review": [],
+      "stock": 19,
+      "emoji": "✨",
+      "hot": true
+    },
+    {
+      "id": 3,
+      "nama_produk": "Satin Petal Infusion Blush On",
+      "kategori": "makeup",
+      "harga": 540000,
+      "foto_produk": "image/blushon.jpg.jpeg",
+      "deskripsi": "Diperkaya dengan micronized silk polymers dan bubuk mutiara asli untuk rona segar alami.",
+      "review": [],
+      "stock": 28,
+      "emoji": "🌸",
+      "hot": true
+    },
+    {
+      "id": 4,
+      "nama_produk": "Perfecting Silk Veil Two Way Cake",
+      "kategori": "makeup",
+      "harga": 790000,
+      "foto_produk": "image/two way cake.jpg.jpeg",
+      "deskripsi": "Powder foundation dual-action dengan Hyaluronic Acid Spheres dan SPF 30 untuk coverage halus.",
+      "review": [],
+      "stock": 31,
+      "emoji": "🪞",
+      "hot": false
+    },
+    {
+      "id": 5,
+      "nama_produk": "Soft Cashmere Matte Lipcream",
+      "kategori": "makeup",
+      "harga": 460000,
+      "foto_produk": "image/lipcream.jpg.jpeg",
+      "deskripsi": "Diformulasikan dengan pure botanic oils dan Shea Butter Comfort Blend untuk hasil lip blur.",
+      "review": [],
+      "stock": 55,
+      "emoji": "💋",
+      "hot": false
+    },
+    {
+      "id": 6,
+      "nama_produk": "Rouge Supreme Satin Lipstik",
+      "kategori": "makeup",
+      "harga": 520000,
+      "foto_produk": "image/lipstik.jpg.jpeg",
+      "deskripsi": "Lipstik couture ikonik dengan Camellia Seed Oil untuk hasil satin intens yang mewah.",
+      "review": [],
+      "stock": 22,
+      "emoji": "💄",
+      "hot": false
+    },
+    {
+      "id": 7,
+      "nama_produk": "Liquid Gold Strobing Highlighter",
+      "kategori": "makeup",
+      "harga": 610000,
+      "foto_produk": "image/highlighter baru.jpeg",
+      "deskripsi": "Fluid illuminator dengan prismatic gold crystals dalam organic botanical squalane matrix.",
+      "review": [],
+      "stock": 14,
+      "emoji": "✨",
+      "hot": true
+    },
+    {
+      "id": 8,
+      "nama_produk": "Majesty Imperial Extrait de Parfum",
+      "kategori": "parfum",
+      "harga": 3200000,
+      "foto_produk": "image/parfum baru 1.jpeg",
+      "deskripsi": "Konsentrasi wewangian tertinggi dengan Jasmine Sambac Absolue, White Oud Amber, dan Vanilla.",
+      "review": [],
+      "stock": 8,
+      "emoji": "🔮",
+      "hot": true
+    },
+    {
+      "id": 9,
+      "nama_produk": "Opulence Bloom Eau de Parfum",
+      "kategori": "parfum",
+      "harga": 2450000,
+      "foto_produk": "image/parfum baru 2.jpeg",
+      "deskripsi": "Aroma romantis bunga peony, bergamot segar, dan musk sutra yang sensual.",
+      "review": [],
+      "stock": 12,
+      "emoji": "🌺",
+      "hot": false
+    },
+    {
+      "id": 10,
+      "nama_produk": "Gilded Citrus Eau de Toilette",
+      "kategori": "parfum",
+      "harga": 1850000,
+      "foto_produk": "image/parfum baru 3.jpeg",
+      "deskripsi": "Wewangian mediterania dengan jeruk nipis dan kayu amber yang disalut.",
+      "review": [],
+      "stock": 25,
+      "emoji": "🍋",
+      "hot": false
+    },
+    {
+      "id": 11,
+      "nama_produk": "Verdant Breeze Eau de Cologne",
+      "kategori": "parfum",
+      "harga": 1400000,
+      "foto_produk": "image/parfum 4.jpg.jpeg",
+      "deskripsi": "Aroma dedaunan mint, teh putih premium, dan cedarwood segar yang menyegarkan.",
+      "review": [],
+      "stock": 40,
+      "emoji": "🌿",
+      "hot": false
+    },
+    {
+      "id": 12,
+      "nama_produk": "Aqueous Mist Eau Fraîche",
+      "kategori": "parfum",
+      "harga": 1250000,
+      "foto_produk": "image/parfum 5.jpg.jpeg",
+      "deskripsi": "Wewangian ringan dengan aroma air tawar, lotus, dan musk transparan.",
+      "review": [],
+      "stock": 35,
+      "emoji": "💧",
+      "hot": false
+    },
+    {
+      "id": 13,
+      "nama_produk": "Bio-Cellular Advanced Gel Cream",
+      "kategori": "skincare",
+      "harga": 1350000,
+      "foto_produk": "image/gel cream.jpg.jpeg",
+      "deskripsi": "Pelembap dingin dengan Squalane, centella, dan ceramides untuk barrier defense.",
+      "review": [],
+      "stock": 18,
+      "emoji": "🧴",
+      "hot": false
+    },
+    {
+      "id": 14,
+      "nama_produk": "Purifying French Rose Clay Mask",
+      "kategori": "skincare",
+      "harga": 850000,
+      "foto_produk": "image/claymask baru.jpeg",
+      "deskripsi": "Pink clay dengan French Rose hydrosol dan enzim eksfoliasi untuk kulit halus.",
+      "review": [],
+      "stock": 22,
+      "emoji": "🌹",
+      "hot": false
+    },
+    {
+      "id": 15,
+      "nama_produk": "Supreme Golden Elixir Ampoule",
+      "kategori": "skincare",
+      "harga": 2100000,
+      "foto_produk": "image/ampoule baru.jpeg",
+      "deskripsi": "Treatment malam mewah dengan Marine Collagen, Peptide Complex, dan serpihan emas.",
+      "review": [],
+      "stock": 11,
+      "emoji": "✨",
+      "hot": false
+    },
+    {
+      "id": 16,
+      "nama_produk": "Amino Rich Velvet Cleansing Foam",
+      "kategori": "skincare",
+      "harga": 580000,
+      "foto_produk": "image/cleansing foam.jpg.jpeg",
+      "deskripsi": "Pembersih soap-free dengan amino acids dan thermal water yang lembut.",
+      "review": [],
+      "stock": 30,
+      "emoji": "🧼",
+      "hot": true
+    },
+    {
+      "id": 17,
+      "nama_produk": "Hydra Replenish Botanical Lotion",
+      "kategori": "skincare",
+      "harga": 690000,
+      "foto_produk": "image/lotion baru.jpeg",
+      "deskripsi": "Fluid prepping yang melembapkan dengan Hyaluronic Acid dan polifenol teh hijau.",
+      "review": [],
+      "stock": 26,
+      "emoji": "🌿",
+      "hot": false
+    },
+    {
+      "id": 18,
+      "nama_produk": "Ceramide Barrier Defense Moisturizer",
+      "kategori": "skincare",
+      "harga": 1150000,
+      "foto_produk": "image/mois.jpg.jpeg",
+      "deskripsi": "Krim menenangkan dengan 5 Ceramides, fatty acids, dan kompleks kolesterol.",
+      "review": [],
+      "stock": 15,
+      "emoji": "🛡️",
+      "hot": false
+    },
+    {
+      "id": 19,
+      "nama_produk": "Satin Cocoon Hydrating Body Wash",
+      "kategori": "bodycare",
+      "harga": 490000,
+      "foto_produk": "image/body wash.jpg.jpeg",
+      "deskripsi": "Body cleanser gel kaya Sweet Almond Oil dan amber essential distillates.",
+      "review": [],
+      "stock": 45,
+      "emoji": "🛁",
+      "hot": false
+    },
+    {
+      "id": 20,
+      "nama_produk": "Crushed Pearl Smoothing Body Scrub",
+      "kategori": "bodycare",
+      "harga": 550000,
+      "foto_produk": "image/scrub.jpg.jpeg",
+      "deskripsi": "Scrub mewah dengan Mother of Pearl dan Rice Bran oil untuk kulit halus.",
+      "review": [],
+      "stock": 33,
+      "emoji": "🧖",
+      "hot": false
+    },
+    {
+      "id": 21,
+      "nama_produk": "Marula Infusion Intense Hair Oil",
+      "kategori": "haircare",
+      "harga": 680000,
+      "foto_produk": "image/hair oil.jpg.jpeg",
+      "deskripsi": "Cold-pressed Marula Oil dengan Vitamin E dan Argan untuk rambut berkilau.",
+      "review": [],
+      "stock": 20,
+      "emoji": "🌰",
+      "hot": true
+    },
+    {
+      "id": 22,
+      "nama_produk": "Resveratrol Scalp Serum Oil",
+      "kategori": "haircare",
+      "harga": 890000,
+      "foto_produk": "image/serum oil.jpg.jpeg",
+      "deskripsi": "Serum kulit kepala canggih dengan antioksidan Resveratrol dan Rosemary.",
+      "review": [],
+      "stock": 16,
+      "emoji": "🌿",
+      "hot": false
+    },
+    {
+      "id": 23,
+      "nama_produk": "Silk Protein Weightless Conditioner",
+      "kategori": "haircare",
+      "harga": 520000,
+      "foto_produk": "image/conditioner.jpg.jpeg",
+      "deskripsi": "Conditioner dengan protein silk hidrolik untuk rambut halus dan ringan.",
+      "review": [],
+      "stock": 38,
+      "emoji": "💧",
+      "hot": false
+    },
+    {
+      "id": 24,
+      "nama_produk": "Botanical Caviar Fortifying Shampoo",
+      "kategori": "haircare",
+      "harga": 550000,
+      "foto_produk": "image/shampo.jpg.jpeg",
+      "deskripsi": "Shampoo dengan ekstrak Green Caviar yang membersihkan lembut dan menutrisi.",
+      "review": [],
+      "stock": 40,
+      "emoji": "🧴",
+      "hot": true
+    }
+  ],
+  "orders": [],
+  "carts": [],
+  "sessions": []
+}

@@ -1,0 +1,787 @@
+/* ============================================================
+   admin_style.css — Indah's Beauté Atelier Admin UI
+   ============================================================ */
+
+/* ---------- 1. CSS VARIABLES (ubah tema di sini saja) ---------- */
+:root {
+    /* Primary & Accent Colors */
+    --ad-pink:      #9C515D; /* Luxurious Muted Rose */
+    --ad-pink-lt:   #E5A9B4; /* Soft Premium Pink */
+    --ad-pink-bg:   #FDFBF7; /* High-end Ivory White */
+
+    /* Success & Nature Colors */
+    --ad-green:     #6E8E75; /* Sage Luxury Green */
+    --ad-green-lt:  #F5EFEB; /* Elegant Nude Beige */
+
+    /* Base Neutrals */
+    --ad-white:     #FDFBF7; /* Mapped to --bg-ivory */
+    --ad-offwhite:  #F5EFEB; /* Mapped to --bg-beige */
+    --ad-border:    #E5A9B4; /* Mapped to --accent */
+
+    /* Typography Colors */
+    --ad-dark:      #3A2326; /* Deep Mahogany */
+    --ad-mid:       #7A5C61; /* Rose Muted Accent */
+    --ad-muted:     #7A5C61; /* Rose Muted Accent */
+
+    /* Layout & Sizing */
+    --ad-radius:    12px;
+    --ad-sidebar:   220px;
+    --ad-transition: .25s ease;
+
+    /* Base Shadows */
+    --ad-shadow:    0 4px 24px rgba(236, 143, 164, 0.10);
+
+    /* Backward-compatible aliases & Utility Mappings (Sesuai Struktur File) */
+    --pink:         var(--ad-pink-lt);
+    --pink-deep:    var(--ad-pink);
+    --pink-light:   rgba(229, 169, 180, 0.22); /* Alpha transparan dari --ad-pink-lt */
+    --pink-bg:      var(--ad-pink-bg);
+    --green:        var(--ad-green);
+    --green-light:  var(--ad-ad-green-lt);
+    --off-white:    var(--ad-offwhite);
+    --border:       var(--ad-border);
+    --text-dark:    var(--ad-dark);
+    --text-mid:     var(--ad-mid);
+
+    /* Shadow & Radius Utilities Hierarchy */
+    --shadow-sm:    0 2px 12px var(--ad-shadow);
+    --shadow-md:    var(--ad-shadow);
+    --shadow-lg:    0 18px 55px rgba(58, 35, 38, 0.12);
+    --radius-sm:    var(--ad-radius);
+    --radius-md:    16px;
+    --radius-full:  999px;
+    --transition:   var(--ad-transition);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 17px; }
+body {
+  font-family: "Cormorant Garamond", serif;
+  background: var(--ad-pink-bg);
+  color: var(--ad-dark);
+  min-height: 100vh;
+}
+
+input, select, textarea, button {
+  font-family: "Cormorant Garamond", serif;
+}
+
+/* Pastikan semua elemen admin konsisten font-nya */
+.ad-shell,
+.ad-sidebar,
+.ad-main,
+.ad-table,
+.ad-table th,
+.ad-table td,
+.ad-actions,
+.ad-stok-ctrl,
+.ad-badge,
+.ad-btn-edit,
+.ad-btn-del,
+.ad-link,
+.ad-card,
+.ad-card-header,
+.ad-card-title,
+.ad-page-title,
+.ad-page-sub,
+.ad-topbar,
+.ad-nav-link,
+.ad-logout-btn,
+.ad-btn-add,
+.ad-empty,
+.ad-auth-title,
+.ad-auth-subtitle,
+.ad-auth-form,
+.ad-auth-input,
+.ad-auth-btn,
+.ad-auth-switch,
+.ad-filter-btn,
+.ad-status-btn,
+.ad-file-hint,
+.ad-file-list,
+.toast {
+  font-family: "Cormorant Garamond", serif;
+}
+
+
+a { color: inherit; text-decoration: none; }
+
+/* ---- Shell layout ---- */
+.ad-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ---- Sidebar ---- */
+.ad-sidebar {
+  width: var(--ad-sidebar);
+  background: var(--ad-white);
+  border-right: 1px solid var(--ad-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  z-index: 100;
+  box-shadow: 2px 0 12px rgba(232,117,143,0.07);
+}
+
+.ad-brand {
+  padding: 1.4rem 1.25rem 1rem;
+  border-bottom: 1px solid var(--ad-border);
+}
+
+.ad-brand-icon { font-size: 1.6rem; }
+
+.ad-brand-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.25rem;
+  color: var(--ad-dark);
+  margin-top: 0.25rem;
+}
+
+.ad-brand-name em { color: var(--ad-pink); font-style: normal; }
+.ad-brand-sub { font-size: 0.72rem; color: var(--ad-muted); }
+
+.ad-nav { flex: 1; padding: 0.75rem 0; }
+
+.ad-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.25rem;
+  font-size: 0.88rem;
+  color: var(--ad-mid);
+  transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+
+.ad-nav-link:hover {
+  background: var(--ad-pink-bg);
+  color: var(--ad-pink);
+}
+
+.ad-nav-link.active {
+  /* background tetap statis, animasi yang bergerak ada di ::before */
+  background: var(--ad-pink-lt);
+  color: var(--ad-pink);
+  font-weight: 600;
+  border-left-color: var(--ad-pink);
+}
+
+/* --- Animated moving highlight for active nav link --- */
+.ad-nav-link {
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* background wipe that moves in when active toggles */
+.ad-nav-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(156,81,93,0.00) 0%, rgba(156,81,93,0.20) 50%, rgba(156,81,93,0.00) 100%);
+  transform: translateX(-120%);
+  opacity: 0;
+  transition: transform 420ms ease, opacity 200ms ease;
+  pointer-events: none;
+}
+
+.ad-nav-link.active::before {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.ad-nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+
+.ad-sidebar-footer {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--ad-border);
+}
+
+.ad-logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.9rem;
+  background: none;
+  border: 1px solid var(--ad-border);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: var(--ad-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ad-logout-btn:hover {
+  background: #FDE8EE;
+  color: var(--ad-pink);
+  border-color: var(--ad-pink);
+}
+
+/* ---- Main content ---- */
+.ad-main {
+  flex: 1;
+  margin-left: var(--ad-sidebar);
+  padding: 1.75rem;
+  min-height: 100vh;
+}
+
+/* ---- Topbar ---- */
+.ad-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ad-page-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.5rem;
+  color: var(--ad-dark);
+}
+
+.ad-page-sub {
+  font-size: 0.85rem;
+  color: var(--ad-muted);
+  margin-top: 0.2rem;
+}
+
+/* ---- Stat cards ---- */
+.ad-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.ad-stat-card {
+  background: var(--ad-white);
+  border-radius: var(--ad-radius);
+  border: 1px solid var(--ad-border);
+  padding: 1.25rem;
+  box-shadow: var(--ad-shadow);
+}
+
+.ad-stat-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.ad-stat-val {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ad-dark);
+}
+.ad-stat-label { font-size: 0.78rem; color: var(--ad-muted); margin-top: 0.2rem; }
+
+/* ---- Cards ---- */
+.ad-card {
+  background: var(--ad-white);
+  border-radius: var(--ad-radius);
+  border: 1px solid var(--ad-border);
+  box-shadow: var(--ad-shadow);
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+.ad-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--ad-border);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ad-card-title {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ad-dark);
+}
+
+/* ---- Table ---- */
+.ad-table-wrap { overflow-x: auto; }
+
+.ad-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+
+  /* FIX garis border sel tetap rapi */
+  table-layout: fixed;
+}
+
+/* Rapikan kolom pertama (Produk) supaya tidak menempel tepi */
+.ad-table th:first-child,
+.ad-table td:first-child {
+  padding-left: 25px;
+}
+
+
+
+.ad-table th {
+  background: var(--ad-pink-bg);
+  color: var(--ad-mid);
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.7rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--ad-border);
+}
+
+.ad-table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--ad-border);
+  color: var(--ad-dark);
+  vertical-align: middle;
+  text-align: left;
+}
+
+
+
+.ad-table tr:last-child td { border-bottom: none; }
+.ad-table tr:hover td { background: var(--ad-pink-bg); }
+
+.ad-empty {
+  text-align: center;
+  color: var(--ad-muted);
+  padding: 2rem;
+  font-size: 0.9rem;
+}
+
+/* ---- Badges ---- */
+.ad-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+#indahWatermark{
+    position: fixed;
+
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    color: #ff69b4;
+    opacity: .2;
+
+    z-index: 99999;
+    pointer-events: none;
+    user-select: none;
+
+    animation: pulse 3s infinite;
+}
+
+.ad-badge.hot    { background: #FEF3C7; color: #D97706; }
+.ad-badge.normal { background: var(--ad-green-lt); color: var(--ad-green); }
+
+/* ---- Stok control ---- */
+.ad-stok-ctrl {
+  display: flex;
+  align-items: center; /* sejajarkan tombol & angka secara vertikal */
+  justify-content: center;
+  gap: 0.55rem; /* gap konsisten */
+}
+
+.ad-stok-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid var(--ad-border);
+  background: var(--ad-offwhite);
+  cursor: pointer;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.ad-stok-btn:hover {
+  background: var(--ad-pink-lt);
+  border-color: var(--ad-pink);
+  color: var(--ad-pink);
+}
+
+/* FIX: angka dibuat width tetap supaya saat digit bertambah tombol tidak terdorong */
+.ad-stok-num {
+  font-weight: 700;
+  text-align: center;
+
+  /* width tetap biar layout tidak bergeser saat digit bertambah */
+  width: 48px;
+  min-width: 48px;
+
+  /* jaga konsistensi tinggi */
+  line-height: 1;
+
+  /* pastikan angka benar-benar center */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+/* kolom Label & lainnya: pastikan isi rata vertikal */
+.ad-table td {
+  vertical-align: middle;
+}
+
+/* Jika Label/Badge butuh benar-benar rata tengah */
+.ad-table td .ad-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Pastikan area aksi rata tengah */
+.ad-table td .ad-actions {
+  display: flex;
+  align-items: center;
+}
+
+
+
+/* ---- Action buttons (AKSI kolom produk) ---- */
+/* Kolom aksi */
+td.action-column {
+  vertical-align: middle;
+  text-align: center;
+  padding: 0.8rem 1rem;
+}
+
+/* Pastikan area aksi menutup tinggi cell agar border tidak "memotong" tombol */
+td.action-column .action-buttons {
+  height: 100%;
+}
+
+
+/* Container tombol */
+.action-buttons {
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+/* Tombol Edit/Hapus */
+.action-buttons .btn-edit,
+.action-buttons .btn-delete {
+  min-width: 70px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem 0.75rem; /* jaga ukuran visual tetap */
+}
+
+/* Backward compatibility: bila masih ada markup lama */
+.ad-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.ad-actions .ad-btn-edit,
+.ad-actions .ad-btn-del {
+  min-width: 70px;
+  text-align: center;
+}
+
+
+.ad-btn-edit, .ad-btn-del {
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.ad-btn-edit { background: var(--ad-pink-lt); color: var(--ad-pink); }
+.ad-btn-edit:hover { background: var(--ad-pink); color: white; }
+.ad-btn-del { background: #FEE2E2; color: #DC2626; }
+.ad-btn-del:hover { background: #DC2626; color: white; }
+
+/* ---- Filter buttons ---- */
+.ad-filters { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+.ad-filter-btn {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--ad-border);
+  background: var(--ad-offwhite);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ad-filter-btn.active,
+.ad-filter-btn:hover {
+  background: var(--ad-pink);
+  color: white;
+  border-color: var(--ad-pink);
+}
+
+/* ---- Add button ---- */
+.ad-btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  background: var(--ad-pink);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.ad-btn-add:hover { background: #d4617a; transform: translateY(-1px); }
+
+/* ---- Form ---- */
+.ad-form-card {
+  background: var(--ad-white);
+  border-radius: var(--ad-radius);
+  border: 1px solid var(--ad-border);
+  box-shadow: var(--ad-shadow);
+  padding: 2rem;
+  max-width: 580px;
+}
+
+.ad-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 480px) { .ad-form-grid { grid-template-columns: 1fr; } }
+
+.ad-field { display: flex; flex-direction: column; gap: 0.3rem; }
+.ad-field.full { grid-column: 1 / -1; }
+
+.ad-field label {
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: var(--ad-mid);
+}
+
+.ad-field input,
+.ad-field select,
+.ad-field textarea {
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid var(--ad-border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--ad-dark);
+  background: var(--ad-offwhite);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.ad-field input:focus,
+.ad-field select:focus,
+.ad-field textarea:focus {
+  border-color: var(--ad-pink);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(232,117,143,0.12);
+}
+
+.ad-field textarea { resize: vertical; min-height: 80px; }
+
+.ad-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: var(--ad-mid);
+  cursor: pointer;
+  grid-column: 1 / -1;
+}
+
+.ad-checkbox-row input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--ad-pink); }
+
+.ad-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  grid-column: 1 / -1;
+  /* paksa tidak wrap biar garis aksi tetap sejajar */
+  flex-wrap: nowrap;
+}
+
+/* Biar garis/row aksi tetap lurus saat layout grid wrap */
+.ad-form-actions > * {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 480px) {
+  .ad-form-actions {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  /* biar elemen aksi tetap rata meski ruang sempit */
+  .ad-form-actions > .ad-submit-btn,
+  .ad-form-actions > .ad-cancel-btn {
+    white-space: nowrap;
+  }
+}
+
+.ad-submit-btn {
+  padding: 0.7rem 1.5rem;
+  background: var(--ad-pink);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ad-submit-btn:hover { background: #d4617a; }
+
+.ad-cancel-btn {
+  padding: 0.7rem 1.5rem;
+  background: transparent;
+  color: var(--ad-mid);
+  border: 1px solid var(--ad-border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.ad-cancel-btn:hover { background: var(--ad-pink-bg); }
+
+/* ---- Link ---- */
+.ad-link { color: var(--ad-pink); font-size: 0.82rem; }
+.ad-link:hover { text-decoration: underline; }
+
+/* ---- Auth page ---- */
+.ad-auth-page {
+  min-height: 100vh;
+  background: var(--ad-pink-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.ad-auth-card {
+  background: var(--ad-white);
+  border-radius: 20px;
+  border: 1px solid var(--ad-border);
+  box-shadow: var(--ad-shadow);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.ad-auth-icon { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+.ad-auth-title { font-family: "Cormorant Garamond", serif; font-size: 1.5rem; color: var(--ad-dark); margin-bottom: 0.25rem; }
+.ad-auth-sub { font-size: 0.85rem; color: var(--ad-muted); margin-bottom: 1.75rem; }
+
+.ad-auth-field { margin-bottom: 1rem; text-align: left; }
+.ad-auth-field label { display: block; font-size: 0.83rem; color: var(--ad-mid); margin-bottom: 0.3rem; }
+.ad-auth-field input {
+  width: 100%; padding: 0.7rem 0.9rem;
+  border: 1.5px solid var(--ad-border);
+  border-radius: 8px; font-family: "Cormorant Garamond", serif;
+  font-size: 0.92rem; background: var(--ad-offwhite);
+  outline: none; transition: all 0.2s;
+}
+.ad-auth-field input:focus { border-color: var(--ad-pink); box-shadow: 0 0 0 3px rgba(232,117,143,0.12); }
+.ad-auth-btn {
+  width: 100%; padding: 0.8rem;
+  background: var(--ad-pink); color: white;
+  border: none; border-radius: 999px;
+  font-family: "Cormorant Garamond", serif; font-size: 0.95rem;
+  font-weight: 500; cursor: pointer; transition: all 0.2s;
+  margin-top: 0.25rem;
+}
+.ad-auth-btn:hover { background: #d4617a; }
+.ad-auth-msg { font-size: 0.85rem; color: #d4617a; margin-top: 0.75rem; min-height: 1rem; }
+.ad-auth-hint { font-size: 0.78rem; color: var(--ad-muted); margin-top: 1rem; }
+
+/* ---- Dashboard grid ---- */
+.ad-dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+@media (max-width: 700px) { .ad-dash-grid { grid-template-columns: 1fr; } }
+
+/* ---- Toast ---- */
+.toast {
+  position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: #2A1F2D; color: white; padding: 0.7rem 1.5rem;
+  border-radius: 999px; font-size: 0.88rem; z-index: 9999;
+  opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap;
+}
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---- Small UI polish (no layout logic changes) ---- */
+.ad-stat-icon,
+.ad-brand-icon,
+.ad-auth-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--pink-light);
+  color: var(--pink-deep);
+  font-size: 1rem;
+}
+
+.ad-logout-btn{
+  outline: none;
+}
+
+.ad-nav-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .ad-sidebar { transform: translateX(-100%); }
+  .ad-main    { margin-left: 0; }
+}
+

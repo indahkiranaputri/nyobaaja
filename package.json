@@ -1,0 +1,21 @@
+{
+  "name": "indah-beaute-atelier",
+  "version": "1.0.0",
+  "description": "Backend API for Indah's Beauté Atelier",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test:integration": "node tests/integration_test.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "uuid": "^9.0.0",
+    "node-fetch": "^2.6.7",
+    "better-sqlite3": "^8.1.0",
+    "firebase-admin": "^11.11.1"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
